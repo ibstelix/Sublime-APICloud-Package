@@ -32,7 +32,7 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
     def __init__(self,arg):
         self.__curDir=curDir
         self.__apkLogging=logging.getLogger('apk')
-        self.__file_handler =logging.FileHandler(os.path.join(self.__curDir,'apicloud_build.log'))
+        self.__file_handler =logging.FileHandler(os.path.join(self.__curDir,'tmp','apicloud_build.log'))
         self.__apkLogging.setLevel(logging.DEBUG) 
         formatter=logging.Formatter('%(asctime)s %(message)s')
         self.__file_handler.setFormatter(formatter)
@@ -102,8 +102,11 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
         stderr=''
 
         if 'darwin' in platform.system().lower():
-            stdoutbyte=os.popen(cmd)
-            stdout=stdoutbyte.read()
+            p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
+            stdoutbyte,stderrbyte=p.communicate()
+            stdout=str(stdoutbyte)
+            stderr=str(stderrbyte)
+            rtnCode=p.returncode
 
         elif 'windows' in platform.system().lower():
             if 'logFile'==self.__cmdLogType:
