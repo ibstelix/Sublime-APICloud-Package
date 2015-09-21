@@ -102,11 +102,8 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
         stderr=''
 
         if 'darwin' in platform.system().lower():
-            p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
-            stdoutbyte,stderrbyte=p.communicate()
-            stdout=str(stdoutbyte)
-            stderr=str(stderrbyte)
-            rtnCode=p.returncode
+            stdoutbyte=os.popen(cmd)
+            stdout=stdoutbyte.read()
 
         elif 'windows' in platform.system().lower():
             if 'logFile'==self.__cmdLogType:
@@ -129,7 +126,7 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
         if 'darwin' in platform.system().lower() :
             apkToolsPath='"'+os.path.join(self.__curDir,'tools','mac','apktool.jar')+'"'
         elif 'windows' in platform.system().lower(): 
-            apkToolsPath='"'+os.path.join(self.__curDir,'tools','windows','apktool.jar')+'"'
+            apkToolsPath='"'+os.path.join(self.__curDir,'tools','mac','apktool.jar')+'"'
         else:
             return
         sourceApk='"'+os.path.join(self.__curDir,'appLoader','apicloud-loader','load.apk')+'"' #loader path
@@ -219,7 +216,7 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
             apkToolsPath='"'+os.path.join(self.__curDir,'tools','mac','apktool.jar')+'"'
             aaptPath='"'+os.path.join(self.__curDir,'tools','mac','aapt')+'"'
         elif 'windows' in platform.system().lower(): 
-            apkToolsPath='"'+os.path.join(self.__curDir,'tools','windows','apktool.jar')+'"'
+            apkToolsPath='"'+os.path.join(self.__curDir,'tools','mac','apktool.jar')+'"'
             aaptPath='"'+os.path.join(self.__curDir,'tools','windows','aapt.exe')+'"'
         else:
             self.__apkLogging.info ('packageApk:platform not supported.')
@@ -239,8 +236,8 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
             toolsPath='"'+os.path.join(self.__curDir,'tools','mac','tools.jar')+'"'
             keyFilePath='"'+os.path.join(self.__curDir,'tools','mac','uzmap.keystore')+'"'
         elif 'windows' in platform.system().lower(): 
-            toolsPath='"'+os.path.join(self.__curDir,'tools','windows','tools.jar')+'"'
-            keyFilePath='"'+os.path.join(self.__curDir,'tools','windows','uzmap.keystore')+'"'
+            toolsPath='"'+os.path.join(self.__curDir,'tools','mac','tools.jar')+'"'
+            keyFilePath='"'+os.path.join(self.__curDir,'tools','mac','uzmap.keystore')+'"'
 
         signedApk='"'+os.path.join(self.__cachePath,self.__appId+'.signed')+'"'
         signedApkCmd='java -classpath '+ toolsPath+' sun.security.tools.JarSigner -keystore ' + keyFilePath \
