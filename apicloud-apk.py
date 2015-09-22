@@ -20,7 +20,7 @@ def CleanDir( Dir ):
     return True
 
 class BuildApkCommand(sublime_plugin.WindowCommand):
-    """docstring for ApicloudLoaderCommand"""
+    """docstring for BuildApkCommand"""
     __curDir=''
     __appId=''
     __cachePath=''
