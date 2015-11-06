@@ -191,7 +191,7 @@ class BuildApkCommand(sublime_plugin.WindowCommand):
         outputFile =open(styleFile,'w',encoding='utf-8'); 
         for line in lines:
             if '<item name="android:windowFullscreen">' in line: 
-                line='        <item name="android:windowFullscreen">'+self.__fullScreen+'</item>\n'
+                line='        <item name="android:windowFullscreen">'+str(self.__fullScreen)+'</item>\n'
                 outputFile.write(line)
             else:
                 outputFile.write(line)
