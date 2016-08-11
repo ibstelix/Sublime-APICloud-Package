@@ -1,3 +1,5 @@
 [
-	{ "caption": "本地打包..", "command": "build_apk", "args": {"dirs": []} }
+	{ "caption": "本地打包..", "command": "build_apk", "args": {"dirs": []} },
+	{ "caption": "Create local package", "command": "en_build_apk", "args": {"dirs": []} },
+	{ "caption": "Generer le paquet Apk", "command": "fr_build_apk", "args": {"dirs": []} }	
 ]
