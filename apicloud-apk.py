@@ -4,9 +4,13 @@ import os,platform,json,logging,subprocess,sys,traceback,shutil
 from xml.etree.ElementTree import ElementTree,Element
 
 curDir = os.path.dirname(os.path.realpath(__file__))
-settings = {}
-settings = sublime.load_settings("APICloudPackage.sublime-settings")
-#print(settings.get("envlang"))
+
+def plugin_loaded():
+    global settings
+    settings = {}
+    settings = sublime.load_settings("APICloudPackage.sublime-settings")
+    print("settings loaded!")
+    print(settings.get("envlang")
 
 def CleanDir( Dir ):
     if os.path.isdir( Dir ):
